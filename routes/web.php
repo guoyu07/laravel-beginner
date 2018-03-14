@@ -37,3 +37,7 @@ Route::resource('users', 'UsersController');
 // Route::post('/users/{user}/edit', 'UsersController@edit')->name('users.edit'); // 编辑用户个人信息页面
 // Route::patch('/users/{user}', 'UsersController@update')->name('users.update'); // 更新用户
 // Route::delete('/users/{user}', 'UsersController@destory')->name('users.destory'); // 删除用户
+
+Route::get('login', 'SessionsController@create')->name('login');
+Route::post('login', 'SessionsController@store')->name('login');
+Route::delete('logout', 'SessionsController@destory')->name('logout');
