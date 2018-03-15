@@ -8531,3 +8531,15 @@ input {
   margin-top: 50px;
 }
 
+/* users edit */
+
+.gravatar-edit {
+  margin: 15px auto;
+  text-align: center;
+}
+
+.gravatar-edit .gravatar {
+  float: none;
+  max-width: 100px;
+}
+

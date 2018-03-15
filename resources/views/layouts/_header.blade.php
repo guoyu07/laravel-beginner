@@ -11,8 +11,8 @@
                         </a>
                         
                         <ul class="dropdown-menu">
-                            <li><a href="{{ route('users.show', ['id' => Auth::user()->id])}}">个人中心</a></li>
-                            <li><a href="#">编辑信息</a></li>
+                            <li><a href="{{ route('users.show', ['id' => Auth::user()->id]) }}">个人中心</a></li>
+                            <li><a href="{{ route('users.edit', ['id' => Auth::user()->id]) }}">编辑信息</a></li>
                             <li class="divider"></li>
                             <li>
                                 <a href="#" id="logout">

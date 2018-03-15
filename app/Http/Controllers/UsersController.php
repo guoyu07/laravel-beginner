@@ -9,6 +9,20 @@ use Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        // 启用 auth 中间件，未登录用户仅能访问 show, create,和 store 路由
+        // 中间件 @see https://laravel-china.org/docs/laravel/5.5/middleware
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store'],
+        ]);
+
+        // guest 中间件
+        $this->middleware('guest', [
+            'only' => ['create'],
+        ]);
+    }
+
     /**
      * 显示用户信息列表
      *
@@ -45,7 +59,7 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6',
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -82,7 +96,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-
+        $this->authorize('update', $user);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -94,7 +109,28 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
 
+        $credentials = $this->validate($request, [
+            'name' => 'required|min:3|max:50',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        // $user->update([
+        //     'name' => $request->name,
+        //     'password' => bcrypt($request->password),
+        // ]);
+        
+        $data['name'] = $request->name;
+
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        session()->flash('success', '更新成功!');
+        return redirect()->route('users.show', $user->id);
     }
 
     /**
@@ -105,6 +141,5 @@ class UsersController extends Controller
      */
     public function destory(User $user)
     {
-
     }
 }
