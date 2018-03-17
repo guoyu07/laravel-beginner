@@ -30,4 +30,9 @@ class UserPolicy
     {
         return $loginUser->id == $user->id;
     }
+
+    public function destroy(User $admin, User $user)
+    {
+        return $admin->is_admin && $admin->id !== $user->id;
+    }
 }

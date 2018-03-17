@@ -14,7 +14,7 @@ class UsersController extends Controller
         // 启用 auth 中间件，未登录用户仅能访问 show, create,和 store 路由
         // 中间件 @see https://laravel-china.org/docs/laravel/5.5/middleware
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store'],
+            'except' => ['show', 'create', 'store', 'index'],
         ]);
 
         // guest 中间件
@@ -140,7 +140,12 @@ class UsersController extends Controller
      * @param App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destory(User $user)
+    public function destroy(User $user)
     {
+        $this->authorize('destroy', $user);
+        $user->delete();
+
+        session()->flash('success', '成功删除用户!');
+        return redirect()->back();
     }
 }
