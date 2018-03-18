@@ -37,6 +37,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        
+        // @see https://laravel-china.org/docs/laravel/5.5/eloquent#events
+        static::creating(function($user){
+            $user->activation_token = str_random(30);
+        });
+    }
     
     /**
      * 支持 Gravatar 头像功能
