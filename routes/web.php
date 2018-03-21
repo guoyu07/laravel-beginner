@@ -36,11 +36,11 @@ Route::resource('users', 'UsersController');
 // Route::post('/users', 'UsersController@store')->name('users.store'); // 创建用户
 // Route::post('/users/{user}/edit', 'UsersController@edit')->name('users.edit'); // 编辑用户个人信息页面
 // Route::patch('/users/{user}', 'UsersController@update')->name('users.update'); // 更新用户
-// Route::delete('/users/{user}', 'UsersController@destory')->name('users.destory'); // 删除用户
+// Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy'); // 删除用户
 
 Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');
-Route::delete('logout', 'SessionsController@destory')->name('logout');
+Route::delete('logout', 'SessionsController@destroy')->name('logout');
 
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
@@ -49,3 +49,5 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('passwrod/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
