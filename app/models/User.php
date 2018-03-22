@@ -76,4 +76,71 @@ class User extends Authenticatable
     {
         return $this->statuses()->orderBy('created_at', 'desc');
     }
+
+    /**
+     * followers 获取粉丝
+     * 
+     * @description 用户被 XXX 关注
+     * @link https://laravel-china.org/docs/laravel/5.5/eloquent-relationships
+     * @see https://laravel.com/api/5.5/Illuminate/Database/Eloquent/Relations/BelongsToMany.html
+     * @return mixed
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    /**
+     * following 获取关注用户
+     * 
+     * @description 用户关注 XXX 
+     * @link https://laravel-china.org/docs/laravel/5.5/eloquent-relationships
+     * @see https://laravel.com/api/5.5/Illuminate/Database/Eloquent/Relations/BelongsToMany.html
+     * @return mixed
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    /**
+     * isFollowing 是否关注给定用户
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public function isFollowing($userId)
+    {
+        return $this->followings->contains($userId);
+    }
+    
+    /**
+     * follow 关注用户
+     *
+     * @param array|string $userIds
+     * @return void
+     */
+    public function follow($userIds)
+    {        
+        if (!is_array($userIds)) {
+            $userIds = compact('userIds');
+        }
+        
+        $this->followings()->sync($userIds, false);
+    }
+
+    /**
+     * unfollow 取消关注
+     *
+     * @param array|string $userIds
+     * @return void
+     */
+    public function unfollow($userIds)
+    {
+        if (!is_array($userIds)) {
+            $userIds = compact('userIds');
+        }
+
+        $this->followings()->detach($userIds);
+    }
 }

@@ -189,4 +189,18 @@ class UsersController extends Controller
             $message->from($from, $name)->to($to)->subject($subject);
         });
     }
+
+    public function followers(User $user) 
+    {
+        $title = '粉丝列表';
+        $users = $user->followers()->paginate(15);
+        return view('users.followers', compact('users', 'title'));
+    }
+
+    public function followings(User $user)
+    {
+        $title = '关注列表';
+        $users = $user->followings()->paginate(15);
+        return view('user.followings', compact('users', 'title'));
+    }
 }

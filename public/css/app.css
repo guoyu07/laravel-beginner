@@ -8488,18 +8488,18 @@ aside section span {
   line-height: 1;
 }
 
-section.user_info {
+section.user-info {
   padding-bottom: 10px;
   margin-top: 20px;
   text-align: center;
 }
 
-section.user_info .gravatar {
+section.user-info .gravatar {
   float: none;
   max-width: 70px;
 }
 
-section.user_info h1 {
+section.user-info h1 {
   font-size: 1.4em;
   letter-spacing: -1px;
   margin-bottom: 3px;
@@ -8511,6 +8511,41 @@ section.user_info h1 {
   margin-right: 10px;
   max-width: 50px;
   border-radius: 50%;
+}
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+}
+
+.stats a {
+  float: left;
+  padding: 0 10px;
+  text-align: center;
+  width: 33%;
+  border-left: 1px solid #eeeeee;
+  color: gray;
+}
+
+.stats a:first-child {
+  padding-left: 0;
+  border: 0;
+}
+
+.stats a:hover {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.2em;
+  color: black;
+}
+
+.users.follow {
+  padding: 0;
 }
 
 /* forms */
@@ -8529,6 +8564,12 @@ input {
 
 .panel {
   margin-top: 50px;
+}
+
+#follow-form button {
+  margin: 0 auto;
+  display: block;
+  margin-top: 25px;
 }
 
 /* users edit */

@@ -7,13 +7,21 @@
         <div class="col-md-offset-2 col-md-8">
             <div class="col-md-12">
                 <div class="col-md-offset-2 col-md-8">
-                    <section class="user_info">
+                    <section class="user-info">
                         @include('shared._user_info', ['user' => $user])
+                    </section>
+
+                    <section class="stats">
+                        @include('shared._stats', ['user' => $user])
                     </section>
                 </div>
             </div>
 
             <div class="col-md-12">
+                @if (Auth::check())
+                    @include('users._follow_form')
+                @endIf
+
                 @if (count($statuses) > 0)
                     <ol class="statuses">
                         @foreach ($statuses as $status)

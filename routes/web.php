@@ -22,7 +22,10 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 Route::get('/signup', 'UsersController@create')->name('signup');
 
 Route::resource('users', 'UsersController');
-
+Route::get('users/{id}/followings', 'UsersController@followings')->name('users.followings');// 关注列表
+Route::get('users/{id}/followers', 'UsersController@followers')->name('users.followers');// 粉丝列表
+Route::post('users/followers/{user}', 'FollowersController@store')->name('followers.store');// 关注用户
+Route::delete('users/followers/{user}', 'FollowersController@destroy')->name('followers.destroy');//取关用户
 /**
  * Route::resource('users', 'UsersController'); 
  * Laravel 遵循 RESTful 架构原则，资源路由相当于下面路由功能。
