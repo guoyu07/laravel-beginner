@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -74,7 +75,14 @@ class User extends Authenticatable
 
     public function feed()
     {
-        return $this->statuses()->orderBy('created_at', 'desc');
+        $userIds = Auth::user()->followers->pluck('id')->toArray();
+        array_push($userIds, Auth::user()->id);
+        
+        return Status::whereIn('user_id', $userIds)
+             ->with(['user'])
+             ->orderBy('created_at', 'desc');
+
+        // return $this->statuses()->orderBy('created_at', 'desc');
     }
 
     /**
