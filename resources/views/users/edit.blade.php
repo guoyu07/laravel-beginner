@@ -1,51 +1,50 @@
-<<<<<<< HEAD
 @extends('layouts.default')
 
-@section('title')
-
-@section('content')
-    <h1>注册</h1>
-@endsection
-=======
-@extends('layouts/default')
-
-@section('title', '注册')
+@section('title', '更新个人资料')
 
 @section('content')
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h5>注册</h5>
+                <h5>更新个人资料</h5>
             </div>
+
             <div class="panel-body">
                 @include('shared._error')
 
-                <form method="POST" action="{{ route('users.store') }}">
+                <div class="gravatar-edit">
+                    <a href="http://gravatar.com/emails" target="_blank">
+                        <img src="{{ $user->gravatar(200) }}" alt="{{ $user->name }}" class="gravatar"/>
+                    </a>
+                </div>
+
+                <form action="{{ route('users.update', $user->id) }}" method="POST">
                     {{ csrf_field() }}
+                    {{ method_field('PATCH') }}
+
                     <div class="form-group">
                         <label for="name">名称：</label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control" value="{{ $user->name }}">
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="email">邮箱：</label>
-                        <input type="text" name="email" class="form-control" value="{{ old('email') }}">
+                        <input type="text" name="email" class="form-control" value="{{ $user->email }}" disabled>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="password">密码：</label>
                         <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="password_confirmation">确认密码：</label>
                         <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
                     </div>
-
-                    <button type="submit" class="btn btn-primary">注册</button>
+                    
+                    <button type="submit" class="btn btn-primary">更新</button>
                 </form>
             </div>
         </div>
     </div>
 @endSection
->>>>>>> master-clone

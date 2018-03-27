@@ -12,5 +12,9 @@
                 <li><a href="{{ route('about') }}">关于</a></li>
             </ul>
         </nav>
+<<<<<<< HEAD
 </footer>
+=======
+    </footer>
+>>>>>>> master-clone
 </div>

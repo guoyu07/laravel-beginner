@@ -13,11 +13,22 @@ use Faker\Generator as Faker;
 |
 */
 
+/**
+ * @see https://laravel-china.org/docs/laravel/5.5/database-testing#a72713
+ */
 $factory->define(App\Models\User::class, function (Faker $faker) {
+    static $password;
+
+    $createTime = $faker->date . ' ' . $faker->time;
+
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'email' => $faker->safeEmail,
+        'password' => $password ?: $password = bcrypt('secret'), // secret
+        'is_admin' => false,
+        'activated' => true,
         'remember_token' => str_random(10),
+        'created_at' => $createTime,
+        'updated_at' => $createTime,
     ];
 });
