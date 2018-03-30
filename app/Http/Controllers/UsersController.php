@@ -24,6 +24,7 @@ class UsersController extends Controller
     {
         $user->gravatar();
         $title = '用户信息';
+
         return view('users.show', compact(['title','user']));
     }
 
@@ -40,7 +41,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        
+
         if ($user) {
             Auth::login($user);
             session()->flash('success', '恭喜您，注册成功！');
