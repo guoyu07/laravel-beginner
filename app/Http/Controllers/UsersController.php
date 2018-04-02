@@ -8,9 +8,17 @@ use Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['create', 'show', 'store']
+        ]);
+    }
+
     public function index()
     {
-        return view('users.index');
+        $users = User::paginate(15);
+        return view('users.index', compact('users'));
     }
 
     public function create()
@@ -54,6 +62,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
