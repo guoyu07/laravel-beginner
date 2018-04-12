@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Status;
 use Auth;
 use Mail;
+
 class UsersController extends Controller
 {
     public function __construct()
@@ -30,10 +32,10 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $user->gravatar();
+        $statuses = $user->statuses()->orderBy('created_at', 'desc')->paginate(15);
         $title = '用户信息';
 
-        return view('users.show', compact(['title','user']));
+        return view('users.show', compact(['title','user', 'statuses']));
     }
 
     public function store(Request $request)
