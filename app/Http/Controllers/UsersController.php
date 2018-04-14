@@ -114,4 +114,20 @@ class UsersController extends Controller
         });
 
     }
+
+    public function followings(User $user)
+    {
+        $users = $user->followings()->paginate(15);
+        $title= '关注列表';
+
+        return view('users.show_follower', compact('title', 'users'));
+    }
+
+    public function followers(User $user)
+    {
+        $users = $this->followers()->paginate(15);
+        $title= '粉丝列表';
+
+        return view('users.show_follower', compact('title', 'users'));
+    }
 }

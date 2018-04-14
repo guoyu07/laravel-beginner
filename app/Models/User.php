@@ -52,4 +52,59 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
+    /**
+     * Undocumented 粉丝
+     *
+     * @return void
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    /**
+     * Undocumented 关注用户
+     *
+     * @return void
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    /**
+     * Undocumented 关注
+     *
+     * @param [type] $userIds
+     * @return void
+     */
+    public function follow($userIds)
+    {
+        $userIds = !is_array($userIds) ? compact('userIds') : $userIds;
+        $this->followings()->syncWithoutDetaching($userIds);
+    }
+
+    /**
+     * Undocumented 取关
+     *
+     * @param [type] $userIds
+     * @return void
+     */
+    public function unfollow($userIds)
+    {
+        $userIds = !is_array($userIds) ? compact('userIds') : $userIds;
+        $this->followings()->detach($userIds);
+    }
+
+    /**
+     * Undocumented 是否关注
+     *
+     * @param [type] $userId
+     * @return boolean
+     */
+    public function isFollowing($userId)
+    {
+        return $this->followings->contains($userId);
+    }
 }
