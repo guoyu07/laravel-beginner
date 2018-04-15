@@ -125,7 +125,7 @@ class UsersController extends Controller
 
     public function followers(User $user)
     {
-        $users = $this->followers()->paginate(15);
+        $users = $user->followers()->paginate(15);
         $title= '粉丝列表';
 
         return view('users.show_follower', compact('title', 'users'));
