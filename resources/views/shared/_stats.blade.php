@@ -1,11 +1,11 @@
 <div class="stat">
-    <a href="{{ route('users.followers', $user->id) }}">
-        <strong id="followers" class="stat">{{ count($user->followings) }}</strong>
+    <a href="{{ route('users.followings', $user->id) }}">
+        <strong id="followings" class="stat">{{ count($user->followings) }}</strong>
         关注
     </a>
 
-    <a href="{{ route('users.followings', $user->id) }}">
-        <strong id="followings" class="stat">{{ count($user->followers) }}</strong>
+    <a href="{{ route('users.followers', $user->id) }}">
+        <strong id="followers" class="stat">{{ count($user->followers) }}</strong>
         粉丝
     </a>
 
