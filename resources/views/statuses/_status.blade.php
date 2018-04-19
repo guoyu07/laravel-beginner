@@ -1,10 +1,10 @@
 <li id="status-{{ $status->id }}">
-    <a href="{{ route('users.show', $status->user_id) }}">
-        <img src="{{ $user->gravatar() }}" alt="{{ $user->name }}" class="gravatar" />
+    <a href="{{ route('users.show', $status->user->id) }}">
+        <img src="{{ $status->user->gravatar() }}" alt="{{ $status->user->name }}" class="gravatar" />
     </a>
 
     <span class="user">
-        <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+        <a href="{{ route('users.show', $status->user->id) }}">{{ $status->user->name }}</a>
     </span>
 
     <span class="timestamp">
